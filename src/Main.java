@@ -1,5 +1,6 @@
 import helpers.MenuHelper;
 import repositories.StudentRepository;
+
 import java.util.Map;
 
 public class Main {
@@ -29,7 +30,16 @@ public class Main {
     }
 
     private static void listStudents() {
-        //TODO implement it.
+        System.out.println("\nList of students: ");
+        StudentRepository.INSTANCE.getAllStudents().forEach(student -> {
+            System.out.println("ID : " + student.get("id"));
+            System.out.println("Name : " + student.get("firstName") + " " + student.get("lastName"));
+            System.out.println("Semester : " + student.get("semester"));
+            System.out.println("Degree : " + student.get("degree"));
+            System.out.println("---------------------------------------------");
+        });
+
+        System.out.println("\nEnd of the list.");
     }
 
     private static void updateStudent() {
