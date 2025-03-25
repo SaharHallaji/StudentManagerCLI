@@ -23,4 +23,17 @@ public enum StudentRepository {
         }).collect(Collectors.toList());
     }
 
+    public Optional<Map<String, String>> getStudent(String id) {
+        return Optional.ofNullable(students.get(id))
+                .map(HashMap::new);
+    }
+
+    public boolean updateStudent(String id, Map<String, String> student) {
+        return Optional.ofNullable(students.get(id))
+            .map(_ -> {
+                students.put(id, new HashMap<>(student));
+                return true;
+            }).orElse(false);
+    }
+
 }

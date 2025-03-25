@@ -2,6 +2,7 @@ import helpers.MenuHelper;
 import repositories.StudentRepository;
 
 import java.util.Map;
+import java.util.Optional;
 
 public class Main {
     public static void main(String[] args) {
@@ -43,7 +44,24 @@ public class Main {
     }
 
     private static void updateStudent() {
-        //TODO implement it.
+        String id = MenuHelper.getStudentId();
+
+        Optional<Map<String, String>> existingStudent = StudentRepository.INSTANCE.getStudent(id);
+        existingStudent.ifPresentOrElse(_ -> {
+
+            System.out.println("\nUpdating student with ID: " + id);
+
+            Map<String, String> updatedData = MenuHelper.addStudentFields();
+
+            if( StudentRepository.INSTANCE.updateStudent(id, updatedData) ) {
+                System.out.println("\nStudent updated successfully with ID: " + id);
+            } else {
+                System.out.println("\nStudent update failed!");
+            }
+
+        },
+           () -> System.out.println("\nStudent not found!")
+        );
     }
 
     private static void removeStudent() {

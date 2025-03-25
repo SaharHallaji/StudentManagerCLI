@@ -1,5 +1,4 @@
 package helpers;
-
 import validators.StudentValidators;
 
 import java.util.HashMap;
@@ -47,6 +46,11 @@ public class MenuHelper {
 
         return fields;
     }
+
+    public static String getStudentId() {
+        return getValidInput("Enter Student ID: ", StudentValidators::validateUuid);
+    }
+
 
     private static String getValidInput(String prompt, Consumer<String> validator) {
         while (true) {
