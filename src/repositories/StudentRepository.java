@@ -36,4 +36,8 @@ public enum StudentRepository {
             }).orElse(false);
     }
 
+    public boolean deleteStudent(String id) {
+        return students.remove(id) != null;
+    }
+
 }

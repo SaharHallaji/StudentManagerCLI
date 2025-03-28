@@ -1,6 +1,7 @@
 import helpers.MenuHelper;
 import repositories.StudentRepository;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -31,16 +32,21 @@ public class Main {
     }
 
     private static void listStudents() {
-        System.out.println("\nList of students: ");
-        StudentRepository.INSTANCE.getAllStudents().forEach(student -> {
-            System.out.println("ID : " + student.get("id"));
-            System.out.println("Name : " + student.get("firstName") + " " + student.get("lastName"));
-            System.out.println("Semester : " + student.get("semester"));
-            System.out.println("Degree : " + student.get("degree"));
-            System.out.println("---------------------------------------------");
-        });
+        List<Map<String, String>> students = StudentRepository.INSTANCE.getAllStudents();
+        if (students.isEmpty()) {
+            System.out.println("\nNo students found!");
+        } else {
+            System.out.println("\nList of students: ");
+            students.forEach(student -> {
+                System.out.println("ID : " + student.get("id"));
+                System.out.println("Name : " + student.get("firstName") + " " + student.get("lastName"));
+                System.out.println("Semester : " + student.get("semester"));
+                System.out.println("Degree : " + student.get("degree"));
+                System.out.println("---------------------------------------------");
+            });
 
-        System.out.println("\nEnd of the list.");
+            System.out.println("\nEnd of the list.");
+        }
     }
 
     private static void updateStudent() {
@@ -65,7 +71,18 @@ public class Main {
     }
 
     private static void removeStudent() {
-        //TODO implement it.
+        String id = MenuHelper.getStudentId();
+
+        Optional<Map<String, String>> existingStudent = StudentRepository.INSTANCE.getStudent(id);
+
+        existingStudent.ifPresentOrElse(_ -> {
+            if (StudentRepository.INSTANCE.deleteStudent(id)){
+                System.out.println("\nStudent deleted successfully!");
+            } else {
+                System.out.println("\nStudent delete failed!");
+            }
+        }, () -> System.out.println("\nStudent not found!"));
+
     }
 
 }
