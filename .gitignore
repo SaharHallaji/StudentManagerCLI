@@ -1,0 +1,57 @@
+# --- IntelliJ IDEA ---
+.idea/
+*.iml
+*.ipr
+*.iws
+out/
+
+# --- Gradle (if used) ---
+.gradle/
+build/
+!gradle/wrapper/gradle-wrapper.jar
+
+# --- Maven (if used) ---
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+
+# --- Eclipse (if used alongside) ---
+.settings/
+.classpath
+.project
+bin/
+
+# --- Build & Logs ---
+*.log
+*.jar
+*.war
+*.ear
+*.nar
+*.zip
+*.tar.gz
+*.class
+
+# --- OS & Editor ---
+.DS_Store
+*.swp
+*.swo
+*~
+~$*
+
+# --- Dependency directories ---
+**/lib/
+**/libs/
+
+# --- Test reports & coverage ---
+**/test-output/
+**/reports/
+**/coverage/
+**/.scannerwork/
+
+# --- Environment files ---
+.env
+*.env
