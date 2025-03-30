@@ -26,13 +26,13 @@ public class Main {
     }
 
     private static void addStudent() {
-/*        Map<String, String> studentData = MenuHelper.addStudentFields();
+        Map<String, String> studentData = MenuHelper.addStudentFields();
         String id = StudentRepository.INSTANCE.addStudent(studentData);
-        System.out.println("\nStudent added successfully with ID: " + id);*/
+        System.out.println("\nStudent added successfully with ID: " + id);
     }
 
     private static void listStudents() {
-/*        List<Map<String, String>> students = StudentRepository.INSTANCE.getAllStudents();
+        List<Map<String, String>> students = StudentRepository.INSTANCE.getAllStudents();
         if (students.isEmpty()) {
             System.out.println("\nNo students found!");
         } else {
@@ -46,42 +46,43 @@ public class Main {
             });
 
             System.out.println("\nEnd of the list.");
-        }*/
+        }
     }
 
     private static void updateStudent() {
-/*        String id = MenuHelper.getStudentId();
+        String id = MenuHelper.getStudentId();
 
         Optional<Map<String, String>> existingStudent = StudentRepository.INSTANCE.getStudent(id);
         existingStudent.ifPresentOrElse(_ -> {
 
-                    System.out.println("\nUpdating student with ID: " + id);
+            System.out.println("\nUpdating student with ID: " + id);
 
-                    Map<String, String> updatedData = MenuHelper.addStudentFields();
+            Map<String, String> updatedData = MenuHelper.addStudentFields();
 
-                    if( StudentRepository.INSTANCE.updateStudent(id, updatedData) ) {
-                        System.out.println("\nStudent updated successfully with ID: " + id);
-                    } else {
-                        System.out.println("\nStudent update failed!");
-                    }
+            if( StudentRepository.INSTANCE.updateStudent(id, updatedData) ) {
+                System.out.println("\nStudent updated successfully with ID: " + id);
+            } else {
+                System.out.println("\nStudent update failed!");
+            }
 
-                },
-                () -> System.out.println("\nStudent not found!")
-        );*/
+        },
+           () -> System.out.println("\nStudent not found!")
+        );
     }
 
     private static void removeStudent() {
-//        /*String id = MenuHelper.getStudentId();
-//
-//        Optional<Map<String, String>> existingStudent = StudentRepository.INSTANCE.getStudent(id);
-//
-//        existingStudent.ifPresentOrElse(_ -> {
-//            if (StudentRepository.INSTANCE.deleteStudent(id)){
-//                System.out.println("\nStudent deleted successfully!");
-//            } else {
-//                System.out.println("\nStudent delete failed!");
-//            }
-//        }, () -> System.out.println("\nStudent not found!"));*/
+        String id = MenuHelper.getStudentId();
+
+        Optional<Map<String, String>> existingStudent = StudentRepository.INSTANCE.getStudent(id);
+
+        existingStudent.ifPresentOrElse(_ -> {
+            if (StudentRepository.INSTANCE.deleteStudent(id)){
+                System.out.println("\nStudent deleted successfully!");
+            } else {
+                System.out.println("\nStudent delete failed!");
+            }
+        }, () -> System.out.println("\nStudent not found!"));
+
     }
 
 }
