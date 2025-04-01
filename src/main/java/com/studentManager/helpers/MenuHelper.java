@@ -1,5 +1,5 @@
-package helpers;
-import validators.StudentValidators;
+package com.studentManager.helpers;
+import com.studentManager.validators.StudentValidators;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -32,10 +32,10 @@ public class MenuHelper {
     public static Map<String, String> addStudentFields() {
         Map<String, String> fields = new HashMap<>();
 
-        fields.put("firstName", getValidInput("Enter Student First Name: ",
+        fields.put("first_name", getValidInput("Enter Student First Name: ",
                 input -> StudentValidators.validateName(input, "First name")));
 
-        fields.put("lastName", getValidInput("Enter Student Last Name: ",
+        fields.put("last_name", getValidInput("Enter Student Last Name: ",
                 input -> StudentValidators.validateName(input, "Last name")));
 
         fields.put("semester", getValidInput("Enter Student semester (e.g., spring 2024): ",

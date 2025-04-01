@@ -1,9 +1,9 @@
-package validators;
+package com.studentManager.validators;
 
 import java.time.Year;
 import java.util.Arrays;
 import java.util.List;
-import exceptions.StudentValidationException;
+import com.studentManager.exceptions.StudentValidationException;
 
 public class StudentValidators {
     private static final List<String> VALID_SEMESTERS = Arrays.asList("spring", "fall", "summer", "winter");

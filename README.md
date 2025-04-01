@@ -11,15 +11,15 @@ A **Java-based** command-line application for managing student records, featurin
 ## **📦 Project Structure**
 ```
 src/
-├── exceptions/
+├── com.studentManager.exceptions/
 │   └── StudentValidationException.java   # Custom validation errors
-├── helpers/
+├── com.studentManager.helpers/
 │   └── MenuHelper.java                  # CLI menu and input handling
-├── repositories/
+├── com.studentManager.repositories/
 │   └── StudentRepository.java           # In-memory student database
-├── validators/
+├── com.studentManager.validators/
 │   └── StudentValidators.java           # Validation logic
-└── Main.java                            # Entry point
+└── com.studentManager.Main.java                            # Entry point
 ```
 
 ---
@@ -57,8 +57,8 @@ src/
 ### **Steps**
 1. **Compile & Run**:
    ```bash
-   javac src/Main.java -d out/
-   java -cp out/ Main
+   javac src/com.studentManager.Main.java -d out/
+   java -cp out/ com.studentManager.Main
    ```
 2. **Use the Menu**:
    ```text
@@ -73,7 +73,7 @@ src/
 
 ## **📈 Possible Extensions**
 1. **Persistence**: Save data to a file (JSON/CSV) or database (SQLite).
-2. **Tests**: Add unit tests (JUnit) for validators/repository.
+2. **Tests**: Add unit tests (JUnit) for com.studentManager.validators/repository.
 3. **GUI**: Convert to a Swing/JavaFX app.
 
 ---

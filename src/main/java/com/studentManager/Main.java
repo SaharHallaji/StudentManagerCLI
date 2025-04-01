@@ -1,12 +1,18 @@
-import helpers.MenuHelper;
-import repositories.StudentRepository;
+package com.studentManager;
+
+import com.studentManager.config.DatabaseConfig;
+import com.studentManager.helpers.MenuHelper;
+import com.studentManager.repositories.StudentRepository;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 public class Main {
     public static void main(String[] args) {
+
+        DatabaseConfig.connectToDB();
+        Runtime.getRuntime().addShutdownHook(new Thread(DatabaseConfig::disconnectDB));
+
         while (true) {
             try {
                 int chosenOption = Integer.parseInt(MenuHelper.showMenu());
@@ -27,19 +33,20 @@ public class Main {
 
     private static void addStudent() {
         Map<String, String> studentData = MenuHelper.addStudentFields();
-        String id = StudentRepository.INSTANCE.addStudent(studentData);
+        String id = StudentRepository.getInstance().addStudent(studentData);
         System.out.println("\nStudent added successfully with ID: " + id);
     }
 
     private static void listStudents() {
-        List<Map<String, String>> students = StudentRepository.INSTANCE.getAllStudents();
+        List<Map<String, String>> students = StudentRepository.getInstance().getAllStudents();
         if (students.isEmpty()) {
             System.out.println("\nNo students found!");
         } else {
             System.out.println("\nList of students: ");
             students.forEach(student -> {
                 System.out.println("ID : " + student.get("id"));
-                System.out.println("Name : " + student.get("firstName") + " " + student.get("lastName"));
+                //TODO fix it.
+                System.out.println("Name : " + student.get("first_name") + " " + student.get("last_name"));
                 System.out.println("Semester : " + student.get("semester"));
                 System.out.println("Degree : " + student.get("degree"));
                 System.out.println("---------------------------------------------");
@@ -52,37 +59,32 @@ public class Main {
     private static void updateStudent() {
         String id = MenuHelper.getStudentId();
 
-        Optional<Map<String, String>> existingStudent = StudentRepository.INSTANCE.getStudent(id);
-        existingStudent.ifPresentOrElse(_ -> {
-
+        if (StudentRepository.getInstance().studentExists(id)) {
             System.out.println("\nUpdating student with ID: " + id);
-
             Map<String, String> updatedData = MenuHelper.addStudentFields();
 
-            if( StudentRepository.INSTANCE.updateStudent(id, updatedData) ) {
+            if (StudentRepository.getInstance().updateStudent(id, updatedData)) {
                 System.out.println("\nStudent updated successfully with ID: " + id);
             } else {
                 System.out.println("\nStudent update failed!");
             }
-
-        },
-           () -> System.out.println("\nStudent not found!")
-        );
+        } else {
+            System.out.println("\nStudent not found!");
+        }
     }
 
     private static void removeStudent() {
         String id = MenuHelper.getStudentId();
 
-        Optional<Map<String, String>> existingStudent = StudentRepository.INSTANCE.getStudent(id);
-
-        existingStudent.ifPresentOrElse(_ -> {
-            if (StudentRepository.INSTANCE.deleteStudent(id)){
+        if (StudentRepository.getInstance().studentExists(id)) {
+            if (StudentRepository.getInstance().deleteStudent(id)) {
                 System.out.println("\nStudent deleted successfully!");
             } else {
                 System.out.println("\nStudent delete failed!");
             }
-        }, () -> System.out.println("\nStudent not found!"));
-
+        } else {
+            System.out.println("\nStudent not found!");
+        }
     }
 
 }
