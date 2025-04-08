@@ -39,11 +39,9 @@ public class StudentValidators {
         }
     }
 
-    public static void validateUuid(String uuid) {
-        if (uuid == null || uuid.trim().isEmpty() ||
-                !uuid.matches("^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$")) {
-            throw new StudentValidationException("You should enter a valid UUID (format: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx)");
-        }
+    public static void validateId(String id) {
+        if (id == null || Integer.parseInt(id) < 0 )
+            throw new StudentValidationException("You should enter a valid ID > 0");
     }
 
     public static void validateDegree(String degree) {
