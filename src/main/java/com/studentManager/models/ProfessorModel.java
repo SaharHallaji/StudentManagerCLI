@@ -1,6 +1,7 @@
 package com.studentManager.models;
 
 import com.studentManager.utils.EducationEnum;
+import com.studentManager.utils.LevelEnum;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
@@ -9,18 +10,17 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.Instant;
-import java.util.Set;
 
 @Setter
 @Getter
 @Entity
-@Table(name = "students",catalog = "student_db")
-public class StudentModel {
+@Table(name = "professors",catalog = "student_db")
+public class ProfessorModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "student_id")
-    private int studentId;
+    @Column(name = "professor_id")
+    private int professorId;
 
     @NotNull()
     @Column(name="first_name")
@@ -31,40 +31,27 @@ public class StudentModel {
     private String lastName;
 
     @NotNull()
-    @Column()
-    @Enumerated(EnumType.STRING)
-    private EducationEnum degree;
-
-    @NotNull()
     @Column(unique = true)
     private String email;
 
-    @NotNull()
-    @Column(unique = true, name = "phone_number")
-    private String phoneNumber;
+    @Enumerated(EnumType.STRING)
+    private LevelEnum level;
 
-    @NotNull()
-    @Column(unique = true, name = "national_code")
-    private String nationalCode;
+    @Enumerated(EnumType.STRING)
+    private EducationEnum education;
+
+    @ManyToOne
+    @JoinColumn(name = "department_id")
+    private DepartmentModel department;
 
 
     @CreationTimestamp()
     @Column(name = "created_on")
     private Instant createdOn;
 
-
     @UpdateTimestamp()
     @Column(name = "updated_on")
     private Instant updatedOn;
 
-    //should I use : cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH} ?
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "student_course",
-            joinColumns = @JoinColumn(name = "student_id"),
-            inverseJoinColumns = @JoinColumn(name = "course_id"))
-    private Set<CourseModel> courses;
-
-
-    public StudentModel() {}
-
 }
+

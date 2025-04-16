@@ -13,4 +13,6 @@ public interface StudentDao {
     Optional<StudentModel> deleteStudent(int studentId);
     Optional<StudentModel> getStudent(int studentId);
 
+    Optional<StudentModel> registerCourse(int studentId, int courseId);
+    Optional<StudentModel> removeCourse(int studentId, int courseId);
 }

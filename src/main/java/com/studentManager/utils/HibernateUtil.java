@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+import com.studentManager.models.CourseModel;
+import com.studentManager.models.DepartmentModel;
+import com.studentManager.models.ProfessorModel;
 import com.studentManager.models.StudentModel;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
@@ -20,6 +23,9 @@ public class HibernateUtil {
             try {
                 Configuration configuration = getConfiguration();
                 configuration.addAnnotatedClass(StudentModel.class);
+                configuration.addAnnotatedClass(CourseModel.class);
+                configuration.addAnnotatedClass(DepartmentModel.class);
+                configuration.addAnnotatedClass(ProfessorModel.class);
 
                 StandardServiceRegistryBuilder serviceRegistry = new StandardServiceRegistryBuilder()
                         .applySettings(configuration.getProperties());

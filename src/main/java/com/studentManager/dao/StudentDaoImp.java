@@ -1,5 +1,6 @@
 package com.studentManager.dao;
 
+import com.studentManager.models.CourseModel;
 import com.studentManager.models.StudentModel;
 import com.studentManager.utils.HibernateUtil;
 import org.hibernate.Session;
@@ -24,7 +25,6 @@ public class StudentDaoImp implements StudentDao{
             session.merge(student);
             return student;
         });
-
     }
 
     @Override
@@ -49,6 +49,32 @@ public class StudentDaoImp implements StudentDao{
     @Override
     public Optional<StudentModel> getStudent(int studentId) {
         return transaction(session -> session.get(StudentModel.class, studentId));
+    }
+
+    @Override
+    public Optional<StudentModel> registerCourse(int studentId, int courseId) {
+        return transaction(session -> {
+            StudentModel student = session.get(StudentModel.class, studentId);
+            CourseModel course = session.get(CourseModel.class, courseId);
+            if (student != null && course != null) {
+                student.getCourses().add(course);
+            }
+            session.merge(student);
+            return student;
+        });
+    }
+
+    @Override
+    public Optional<StudentModel> removeCourse(int studentId, int courseId) {
+        return transaction(session -> {
+            StudentModel student = session.get(StudentModel.class, studentId);
+            CourseModel course = session.get(CourseModel.class, courseId);
+            if (student != null && course != null) {
+                student.getCourses().remove(course);
+            }
+            session.merge(student);
+            return student;
+        });
     }
 
     private Optional<StudentModel> transaction(Function<Session, StudentModel> operation) {
